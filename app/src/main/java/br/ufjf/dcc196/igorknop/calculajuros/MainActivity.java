@@ -18,10 +18,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void jurosSimplesClick(View view){
-        Double valorPresente = Double.parseDouble(editTextValorPresente.getText().toString());
+        try {
+            Double valorPresente = Double.parseDouble(editTextValorPresente.getText().toString());
+            Intent intent = new Intent(MainActivity.this, JurosSimplesActivity.class);
+            intent.putExtra("valorPresente", valorPresente);
+            startActivity(intent);
 
-        Intent intent = new Intent(MainActivity.this, JurosSimplesActivity.class);
-        intent.putExtra("valorPresente", valorPresente);
-        startActivity(intent);
+        } catch (Exception e){
+            editTextValorPresente.selectAll();
+            editTextValorPresente.requestFocus();
+        }
+
     }
 }
