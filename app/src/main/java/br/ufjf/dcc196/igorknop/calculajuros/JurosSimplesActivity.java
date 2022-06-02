@@ -2,6 +2,7 @@ package br.ufjf.dcc196.igorknop.calculajuros;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 public class JurosSimplesActivity extends AppCompatActivity {
     private Double valorPresente;
+    private Double valorFinal;
     private TextView textViewValorPresente;
     private EditText editTextTaxaDeJuros;
     private EditText editTextPeriodos;
@@ -30,6 +32,9 @@ public class JurosSimplesActivity extends AppCompatActivity {
     }
 
     public void retornarClick(View view){
+        Intent resultado = new Intent();
+        resultado.putExtra("valorFinal", valorFinal);
+        setResult(RESULT_OK, resultado);
         finish();
     }
 
@@ -38,7 +43,7 @@ public class JurosSimplesActivity extends AppCompatActivity {
         Integer periodos;
         taxaDeJuros = Double.parseDouble(editTextTaxaDeJuros.getText().toString())/100.0;
         periodos = Integer.parseInt(editTextPeriodos.getText().toString());
-        Double valorFinal = valorPresente*(1+taxaDeJuros*periodos);
+        valorFinal = valorPresente*(1+taxaDeJuros*periodos);
         textViewResultado.setText(valorFinal.toString());
     }
 }
