@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUEST_JUROS_SIMPLES = 1;
+    public static final int REQUEST_JUROS_COMPOSTOS = 2;
     EditText editTextValorPresente;
     TextView textViewValorFinal;
     @Override
@@ -34,14 +35,33 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void jurosCompostosClick(View view){
+        try {
+            Double valorPresente = Double.parseDouble(editTextValorPresente.getText().toString());
+            Intent intent = new Intent(MainActivity.this, JurosCompostosActivity.class);
+            intent.putExtra("valorPresente", valorPresente);
+            startActivityForResult(intent, REQUEST_JUROS_COMPOSTOS);
 
+        } catch (Exception e){
+            e.printStackTrace();
+            editTextValorPresente.selectAll();
+            editTextValorPresente.requestFocus();
+        }
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
             Double valorFinal = extras.getDouble("valorFinal");
-            textViewValorFinal.setText(valorFinal.toString());
+            if(requestCode == REQUEST_JUROS_SIMPLES){
+                textViewValorFinal.setText("Simples: R$"+valorFinal.toString());
+            }else if(requestCode == REQUEST_JUROS_COMPOSTOS){
+                textViewValorFinal.setText("Compostos: R$"+valorFinal.toString());
+
+            }
+
         }
     }
 }
