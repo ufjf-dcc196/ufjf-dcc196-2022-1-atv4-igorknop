@@ -4,7 +4,6 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,8 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int REQUEST_JUROS_SIMPLES = 1;
-    public static final int REQUEST_JUROS_COMPOSTOS = 2;
+    public static final int RESULT_JUROS_SIMPLES = 1;
+    public static final int RESULT_JUROS_COMPOSTOS = 2;
     ActivityResultLauncher<Intent> launcher;
     EditText editTextValorPresente;
     TextView textViewValorFinal;
@@ -34,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
                         Double valorFinal;
                         Bundle extras;
                         switch (result.getResultCode()){
-                            case REQUEST_JUROS_SIMPLES:
+                            case RESULT_JUROS_SIMPLES:
                                 extras = result.getData().getExtras();
                                 valorFinal = extras.getDouble("valorFinal");
                                 textViewValorFinal.setText("Simples: R$"+valorFinal.toString());
                                 break;
-                            case REQUEST_JUROS_COMPOSTOS:
+                            case RESULT_JUROS_COMPOSTOS:
                                 extras = result.getData().getExtras();
                                 valorFinal = extras.getDouble("valorFinal");
                                 textViewValorFinal.setText("Compostos: R$"+valorFinal.toString());
